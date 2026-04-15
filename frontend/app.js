@@ -9,7 +9,7 @@
 // Config — change API_BASE if your backend runs on a different port/host
 // ---------------------------------------------------------------------------
 //const API_BASE = "http://localhost:8000/api"; {lOCAL HOST}
-const API_BASE = "https://skills-library.onrender.com/api"
+const API_BASE = "https://skills-library.onrender.com/api";
 
 // ---------------------------------------------------------------------------
 // State
