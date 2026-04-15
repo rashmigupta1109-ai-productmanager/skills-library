@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skills Library</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <span class="logo-icon">&#x2728;</span>
+        <span class="logo-text">Skills Library</span>
+      </div>
+      <button class="sidebar-toggle" id="sidebarToggle" title="Toggle sidebar">&#x2715;</button>
+    </div>
+
+    <div class="sidebar-section">
+      <h3 class="section-title">Upload Document</h3>
+      <label class="upload-area" id="uploadArea" for="fileInput">
+        <span class="upload-icon">&#x1F4C4;</span>
+        <span class="upload-label" id="uploadLabel">Drop PDF or TXT here<br/><small>or click to browse</small></span>
+        <input type="file" id="fileInput" accept=".pdf,.txt,.md" hidden />
+      </label>
+      <button class="btn btn-primary" id="uploadBtn" disabled>Add to Library</button>
+      <div class="upload-status" id="uploadStatus"></div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="section-header">
+        <h3 class="section-title">Knowledge Base</h3>
+        <button class="btn-icon" id="refreshDocsBtn" title="Refresh list">&#x21BA;</button>
+      </div>
+      <ul class="doc-list" id="docList">
+        <li class="doc-empty">No documents uploaded yet.</li>
+      </ul>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="status-indicator" id="statusIndicator">
+        <span class="status-dot" id="statusDot"></span>
+        <span class="status-text" id="statusText">Connecting...</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN AREA ===== -->
+  <main class="main">
+
+    <!-- Top bar -->
+    <header class="topbar">
+      <button class="btn-icon topbar-menu" id="openSidebar" title="Open sidebar">&#x2630;</button>
+      <div class="topbar-title">
+        <span>Skills Library</span>
+        <span class="topbar-sub">Powered by OpenAI + ChromaDB</span>
+      </div>
+      <button class="btn-icon" id="clearChatBtn" title="Clear conversation">&#x1F5D1;</button>
+    </header>
+
+    <!-- Messages -->
+    <section class="messages" id="messages">
+      <div class="welcome">
+        <div class="welcome-icon">&#x1F916;</div>
+        <h2>Hello! How can I help you?</h2>
+        <p>Upload documents in the sidebar and ask me anything about them.<br/>
+           I'll retrieve the most relevant passages to ground my answers.</p>
+        <div class="welcome-chips">
+          <button class="chip" onclick="insertChip('What is this document about?')">What is this document about?</button>
+          <button class="chip" onclick="insertChip('Summarise the key points.')">Summarise the key points</button>
+          <button class="chip" onclick="insertChip('What are the main conclusions?')">Main conclusions</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Input bar -->
+    <footer class="input-bar">
+      <div class="input-wrapper">
+        <textarea
+          id="messageInput"
+          class="message-input"
+          placeholder="Ask a question about your documents…"
+          rows="1"
+          maxlength="4000"
+        ></textarea>
+        <button class="send-btn" id="sendBtn" title="Send (Enter)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+      </div>
+      <p class="input-hint">Press <kbd>Enter</kbd> to send &middot; <kbd>Shift+Enter</kbd> for new line</p>
+    </footer>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+# Python
+backend/.venv/
+backend/__pycache__/
+backend/rag_engine/__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# ChromaDB vector store (large, machine-specific)
+backend/chroma_db/
+
+# Environment — never commit real keys
+backend/.env
+
+# macOS
+.DS_Store
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
