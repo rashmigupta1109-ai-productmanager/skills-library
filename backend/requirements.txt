@@ -10,3 +10,4 @@ pypdf==5.1.0
 python-multipart==0.0.12
 openai==1.55.3
 tiktoken==0.7.0
+PYTHON_VERSION=3.11.9
