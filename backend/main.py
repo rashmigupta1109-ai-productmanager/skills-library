@@ -161,6 +161,17 @@ def delete_document(doc_id: str):
     return {"success": True, "message": f"Document {doc_id} deleted."}
 
 
+@app.delete("/api/documents")
+def clear_all_documents():
+    if not rag:
+        raise HTTPException(status_code=503, detail="RAG engine not available.")
+    try:
+        count = rag.clear_all_documents()
+        return {"success": True, "message": f"Knowledge base cleared ({count} chunks removed)."}
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=str(exc))
+
+
 @app.post("/api/session/clear")
 def clear_session(req: SessionClearRequest):
     if not rag:

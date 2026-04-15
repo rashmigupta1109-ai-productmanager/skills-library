@@ -456,6 +456,18 @@ body { display: flex; height: 100vh; }
 .btn-primary:hover:not(:disabled) { background: var(--accent-hover); }
 .btn-primary:disabled { opacity: .45; cursor: not-allowed; }
 
+.btn-danger {
+  background: transparent;
+  color: #e88;
+  border: 1px solid rgba(220,80,80,.35);
+  margin-top: 10px;
+}
+.btn-danger:hover:not(:disabled) {
+  background: rgba(221,55,55,.12);
+  color: #DD3737;
+  border-color: #DD3737;
+}
+
 .btn-icon {
   background: none;
   border: none;

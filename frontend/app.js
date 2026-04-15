@@ -31,6 +31,7 @@ const uploadLabel   = document.getElementById("uploadLabel");
 const uploadStatus  = document.getElementById("uploadStatus");
 const docList       = document.getElementById("docList");
 const refreshBtn    = document.getElementById("refreshDocsBtn");
+const clearKbBtn    = document.getElementById("clearKbBtn");
 const clearChatBtn  = document.getElementById("clearChatBtn");
 const statusDot     = document.getElementById("statusDot");
 const statusText    = document.getElementById("statusText");
@@ -396,6 +397,30 @@ async function deleteDocument(docId) {
     alert("Failed to delete document.");
   }
 }
+
+// Clear entire knowledge base
+clearKbBtn.addEventListener("click", async () => {
+  if (!confirm("Remove ALL documents from the knowledge base? This cannot be undone.")) return;
+
+  clearKbBtn.disabled = true;
+  clearKbBtn.textContent = "Clearing…";
+
+  try {
+    const res  = await fetch(`${API_BASE}/documents`, { method: "DELETE" });
+    const data = await res.json();
+    if (res.ok) {
+      await loadDocuments();
+      setUploadStatus(`✅ ${data.message}`, "success");
+    } else {
+      alert(data.detail || "Failed to clear knowledge base.");
+    }
+  } catch {
+    alert("Could not reach server.");
+  } finally {
+    clearKbBtn.disabled = false;
+    clearKbBtn.innerHTML = "&#x1F5D1; Clear Knowledge Base";
+  }
+});
 
 // ---------------------------------------------------------------------------
 // Input auto-resize

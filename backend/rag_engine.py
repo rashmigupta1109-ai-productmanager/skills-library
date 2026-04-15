@@ -226,3 +226,17 @@ class RAGEngine:
     def clear_session(self, session_id: str) -> None:
         """Wipe conversation history for a session."""
         self._memories.pop(session_id, None)
+
+    def clear_all_documents(self) -> int:
+        """Delete every document chunk from the vector store. Returns chunk count removed."""
+        try:
+            data  = self.vectorstore._collection.get()
+            ids   = data.get("ids", [])
+            count = len(ids)
+            if count:
+                self.vectorstore._collection.delete(ids=ids)
+            logger.info("Cleared all documents (%d chunks removed).", count)
+            return count
+        except Exception as exc:
+            logger.error("Failed to clear all documents: %s", exc)
+            raise
