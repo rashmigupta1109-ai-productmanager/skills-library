@@ -161,12 +161,7 @@ function appendMessage(role, text, sources = [], isError = false) {
   bubble.className = "bubble";
   if (isError) bubble.style.color = "#DD3737";
 
-  // Render text with basic markdown: bold, code, line breaks
-  // Append "Have a nice day" on a new line for every AI answer
-  const displayText = (role === "ai" && !isError)
-    ? text + "\n\nHave a nice day 😊"
-    : text;
-  bubble.innerHTML = renderMarkdown(displayText);
+  bubble.innerHTML = renderMarkdown(text);
 
   if (sources.length > 0) {
     const srcDiv = document.createElement("div");
