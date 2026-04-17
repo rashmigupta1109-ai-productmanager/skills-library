@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Intelligence Hub — Architecture</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #0d1117;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .slide {
+      width: 1280px;
+      height: 720px;
+      background: #F0F5FA;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header bar */
+    .slide-header {
+      background: #164B81;
+      padding: 22px 48px 18px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .header-left h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.4px;
+    }
+
+    .header-left p {
+      font-size: 12px;
+      color: #a8c4e0;
+      margin-top: 3px;
+      letter-spacing: 0.2px;
+    }
+
+    .header-badge {
+      font-size: 11px;
+      color: #a8c4e0;
+      border: 1px solid rgba(168,196,224,.4);
+      border-radius: 20px;
+      padding: 4px 12px;
+      letter-spacing: 0.3px;
+    }
+
+    /* Main diagram area */
+    .diagram {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px 48px 20px;
+      gap: 0;
+    }
+
+    /* Columns */
+    .col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .col-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #475569;
+      margin-bottom: 2px;
+    }
+
+    /* Boxes */
+    .box {
+      border-radius: 10px;
+      padding: 14px 20px;
+      text-align: center;
+      min-width: 155px;
+      position: relative;
+    }
+
+    .box-icon { font-size: 22px; display: block; margin-bottom: 6px; }
+
+    .box-title {
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .box-sub {
+      font-size: 10.5px;
+      margin-top: 4px;
+      line-height: 1.4;
+      opacity: .8;
+    }
+
+    /* Box variants */
+    .box-navy {
+      background: #164B81;
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(22,75,129,.3);
+    }
+
+    .box-blue {
+      background: #046BD2;
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(4,107,210,.3);
+    }
+
+    .box-cyan {
+      background: #00AFD7;
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(0,175,215,.3);
+    }
+
+    .box-white {
+      background: #fff;
+      color: #1E293B;
+      border: 1.5px solid #D1D5DB;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    }
+
+    .box-light {
+      background: #ddeeff;
+      color: #164B81;
+      border: 1.5px solid rgba(4,107,210,.2);
+    }
+
+    /* Arrows */
+    .arrow-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 0 12px;
+    }
+
+    .arrow-line {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .arrow-track {
+      width: 56px;
+      height: 2px;
+      background: linear-gradient(90deg, #046BD2, #00AFD7);
+      border-radius: 2px;
+      position: relative;
+    }
+
+    .arrow-track::after {
+      content: '';
+      position: absolute;
+      right: -6px;
+      top: -4px;
+      border: 5px solid transparent;
+      border-left-color: #00AFD7;
+    }
+
+    .arrow-label {
+      font-size: 9.5px;
+      color: #475569;
+      text-align: center;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+    }
+
+    /* Vertical arrow */
+    .v-arrow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .v-track {
+      width: 2px;
+      height: 30px;
+      background: linear-gradient(180deg, #046BD2, #00AFD7);
+      border-radius: 2px;
+      position: relative;
+    }
+
+    .v-track::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: -4px;
+      border: 5px solid transparent;
+      border-top-color: #00AFD7;
+    }
+
+    /* Stack inside backend column */
+    .backend-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Footer */
+    .slide-footer {
+      background: #fff;
+      border-top: 1px solid #D1D5DB;
+      padding: 10px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .footer-note {
+      font-size: 10.5px;
+      color: #475569;
+      font-style: italic;
+    }
+
+    .tech-pills {
+      display: flex;
+      gap: 8px;
+    }
+
+    .pill {
+      font-size: 10px;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: #ddeeff;
+      color: #046BD2;
+      border: 1px solid rgba(4,107,210,.2);
+    }
+
+    /* Decorative bg circle */
+    .bg-circle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: .04;
+      background: #164B81;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+<div class="slide">
+
+  <!-- Decorative -->
+  <div class="bg-circle" style="width:500px;height:500px;top:-200px;right:-100px;"></div>
+  <div class="bg-circle" style="width:300px;height:300px;bottom:-100px;left:50px;"></div>
+
+  <!-- Header -->
+  <div class="slide-header">
+    <div class="header-left">
+      <h1>Intelligence Hub — System Architecture</h1>
+      <p>Knowledge retrieval system for advisor workflows &nbsp;·&nbsp; AI Prototype</p>
+    </div>
+    <div class="header-badge">AssetMark &nbsp;·&nbsp; For Demo Purposes Only</div>
+  </div>
+
+  <!-- Diagram -->
+  <div class="diagram">
+
+    <!-- Col 1: User -->
+    <div class="col">
+      <div class="col-label">Advisor</div>
+      <div class="box box-navy">
+        <span class="box-icon">👤</span>
+        <div class="box-title">Advisor /<br/>User</div>
+        <div class="box-sub">Uploads docs<br/>Asks questions</div>
+      </div>
+    </div>
+
+    <!-- Arrow 1 -->
+    <div class="arrow-group">
+      <div class="arrow-line">
+        <div class="arrow-track"></div>
+      </div>
+      <div class="arrow-label">HTTP / REST</div>
+    </div>
+
+    <!-- Col 2: Frontend -->
+    <div class="col">
+      <div class="col-label">Frontend</div>
+      <div class="box box-white">
+        <span class="box-icon">🖥️</span>
+        <div class="box-title">Intelligence Hub UI</div>
+        <div class="box-sub">HTML · CSS · JS<br/>Chat interface</div>
+      </div>
+    </div>
+
+    <!-- Arrow 2 -->
+    <div class="arrow-group">
+      <div class="arrow-line">
+        <div class="arrow-track"></div>
+      </div>
+      <div class="arrow-label">JSON / API</div>
+    </div>
+
+    <!-- Col 3: Backend -->
+    <div class="col">
+      <div class="col-label">Backend</div>
+      <div class="backend-stack">
+        <div class="box box-blue" style="min-width:165px;">
+          <span class="box-icon">⚡</span>
+          <div class="box-title">FastAPI</div>
+          <div class="box-sub">Python · REST endpoints<br/>/chat · /upload · /documents</div>
+        </div>
+        <div class="v-arrow"><div class="v-track"></div></div>
+        <div class="box box-light" style="min-width:165px;">
+          <span class="box-icon">🔗</span>
+          <div class="box-title">RAG Engine</div>
+          <div class="box-sub">LangChain · chunking<br/>retrieval · prompt assembly</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Arrow 3 -->
+    <div class="arrow-group" style="flex-direction:column;gap:18px;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+        <div class="arrow-line"><div class="arrow-track"></div></div>
+        <div class="arrow-label">Similarity<br/>search</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+        <div class="arrow-line"><div class="arrow-track"></div></div>
+        <div class="arrow-label">LLM<br/>call</div>
+      </div>
+    </div>
+
+    <!-- Col 4: AI Services -->
+    <div class="col">
+      <div class="col-label">AI Services</div>
+      <div style="display:flex;flex-direction:column;gap:14px;align-items:center;">
+        <div class="box box-white" style="min-width:155px;">
+          <span class="box-icon">🗄️</span>
+          <div class="box-title">ChromaDB</div>
+          <div class="box-sub">Vector store<br/>text-embedding-3-small</div>
+        </div>
+        <div class="box box-cyan" style="min-width:155px;">
+          <span class="box-icon">🤖</span>
+          <div class="box-title">OpenAI LLM</div>
+          <div class="box-sub">GPT-4o-mini<br/>Answer generation</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="slide-footer">
+    <div class="footer-note">For showcase only — simulated using publicly available AssetMark data for demo purposes.</div>
+    <div class="tech-pills">
+      <span class="pill">Python 3.9</span>
+      <span class="pill">FastAPI</span>
+      <span class="pill">LangChain</span>
+      <span class="pill">ChromaDB</span>
+      <span class="pill">OpenAI</span>
+      <span class="pill">HTML / CSS / JS</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
