@@ -91,10 +91,10 @@ body { display: flex; height: 100vh; }
 .logo { display: flex; align-items: center; gap: 10px; }
 .logo-icon { font-size: 22px; }
 .logo-text {
-  font-size: 18px;
+  font-size: 26px;
   font-weight: 700;
   color: #fff;
-  letter-spacing: -.3px;
+  letter-spacing: -.5px;
 }
 
 /* Sidebar sections */
