@@ -96,12 +96,6 @@ body { display: flex; height: 100vh; }
   color: #fff;
   letter-spacing: -.3px;
 }
-.assetmark-logo {
-  height: 28px;
-  width: auto;
-  display: block;
-  filter: brightness(0) invert(1);
-}
 
 /* Sidebar sections */
 .sidebar-section {
