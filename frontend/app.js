@@ -263,10 +263,9 @@ clearChatBtn.addEventListener("click", async () => {
 function resetUI() {
   messagesEl.innerHTML = `
     <div class="welcome">
-      <div class="welcome-icon">🤖</div>
-      <h2>Hello! How can I help you?</h2>
-      <p>Upload documents in the sidebar and ask me anything about them.<br/>
-         I'll retrieve the most relevant passages to ground my answers.</p>
+      <h2>What would you like to know?</h2>
+      <p>Upload advisor documents in the sidebar, then ask questions.<br/>
+         Answers are grounded in the uploaded content.</p>
       <div class="welcome-chips">
         <button class="chip" onclick="insertChip('What is this document about?')">What is this document about?</button>
         <button class="chip" onclick="insertChip('Summarise the key points.')">Summarise the key points</button>

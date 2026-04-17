@@ -272,7 +272,6 @@ body { display: flex; height: 100vh; }
   gap: 14px;
 }
 
-.welcome-icon { font-size: 56px; line-height: 1; }
 .welcome h2 { font-size: 22px; font-weight: 700; color: var(--text-primary); }
 .welcome p  { font-size: 15px; color: var(--text-muted); line-height: 1.6; max-width: 420px; }
 
